@@ -13,6 +13,7 @@ void I2C_vInit(void);
 u8 I2C_u8SendStartCondition(void);
 u8 I2C_u8SendSlaveAddress(u8 A_u8Sla, u8 A_Rw);
 u8 I2C_u8SendByte(u8 A_u8Byte);
+u8 I2C_u8RecvByte(u8 *A_u8Byte , u8 A_uAck);
 u8 I2C_u8SendSlaveAddress(u8 A_u8Sla, u8 A_Rw);
 u8 I2C_u8SendStopCondition(void);
 u8 I2C_u8SendRepeatedStartCondition(void);
