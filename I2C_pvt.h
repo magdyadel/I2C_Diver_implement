@@ -8,6 +8,7 @@
 #ifndef COTS_MCAL_AVR_I2C_I2C_PVT_H_
 #define COTS_MCAL_AVR_I2C_I2C_PVT_H_
 
+#define TWCR (*(volatile u8 *)(0x56))
 #define TWDR	*((volatile u8*)(0x23))
 #define TWAR	*((volatile u8*)(0x22))
 #define TWSR	*((volatile u8*)(0x21))

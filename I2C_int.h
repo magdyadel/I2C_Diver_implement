@@ -18,6 +18,10 @@ u8 I2C_u8SendSlaveAddress(u8 A_u8Sla, u8 A_Rw);
 u8 I2C_u8SendStopCondition(void);
 u8 I2C_u8SendRepeatedStartCondition(void);
 u8 I2C_u8GetStatusCode(void);
+void I2C_vSetOwnSlaveAddress( u8 A_u8OwnSla);
+void I2C_vSetBitRate( u8 A_u8BitRate);
+
+
 
 
 

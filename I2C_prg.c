@@ -50,7 +50,7 @@ u8 I2C_u8SendSlaveAddress(u8 A_u8Sla, u8 A_Rw)
 
 u8 I2C_u8SendByte(u8 A_u8Byte)
 {
-	TWDR = DATA;
+	TWDR = A_u8Byte;
 	TWCR = (1<<TWINT) | (1<<TWEN);	//	Load DATA into TWDR Register. Clear
 									//	TWINT bit in TWCR to start transmission
 									//	of data
@@ -58,6 +58,22 @@ u8 I2C_u8SendByte(u8 A_u8Byte)
 									//	that the DATA has been transmitted, and
 									//	ACK/NACK has been received.
 	return (TWSR & 0xF8);
+}
+
+u8 I2C_u8RecvByte(u8 *A_u8Byte , u8 A_uAck)
+{
+	if(A_uAck)
+	{
+		TWCR |= (1<<TWINT)|(1<<TWEN)|(1<<TWEA);
+
+	}else
+	{
+		TWCR |= (1<<TWINT)|(1<<TWEN);
+		CLR_BIT(TWCR,TWEA);
+	}
+	while (! (TWCR & (1<<TWINT) ) );
+
+	return TWDR;
 }
 
 u8 I2C_u8SendStopCondition(void)
@@ -77,4 +93,24 @@ u8 I2C_u8SendRepeatedStartCondition(void)
 u8 I2C_u8GetStatusCode(void)
 {
 	return (TWSR & 0xF8);
+}
+
+void I2C_vSetOwnSlaveAddress( u8 A_u8OwnSla)
+{
+
+}
+void I2C_vSetBitRate( u8 A_u8BitRate)
+{
+	u32 TWBR_VAL = 0 ;
+
+	u32 DIV = FCPU/A_u8BitRate ;
+
+	TWBR_VAL = (DIV - 16)>>( (2*PRESCALER) +1 ) ;
+
+	if(TWBR_VAL<10)
+	{
+
+	}
+	TWBR = (u8)TWBR_VAL;
+	TWBR = 32;
 }
